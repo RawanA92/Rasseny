@@ -6,7 +6,7 @@ const Categories = ({ categoryList }) => {
   const renderCategoryItem = ({ item }) => (
     <TouchableOpacity
       style={styles.categoryItem}
-      onPress={() => router.replace`(/productList?category=${item.title})`}
+      onPress={() => router.replace(`/productList?category=${item.title}`)}
     >
       <Image source={{ uri: item.imageURL }} style={styles.categoryImage} />
       <Text style={styles.categoryName}>{item.title}</Text>

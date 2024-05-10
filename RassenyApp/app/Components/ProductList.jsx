@@ -1,12 +1,8 @@
-
-import { View, Text, Image, FlatList, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity , TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react'
 import { getFirestore } from 'firebase/firestore';
-//import { useRoute } from '@react-navigation/native';
 import { db} from "../../firebase/Config";
 import { useLocalSearchParams }from 'expo-router';
-
-
 import {
   getDocs,
   setDoc,
@@ -25,6 +21,8 @@ const ProductsList = () => {
   const {category} = useLocalSearchParams();
   const [title] = useState (category);
   const [storage, setStorage] = useState ([]);
+  const [searchQuery, setSearchQuery] = useState('');
+
   console.log(title); 
   
  
@@ -47,26 +45,47 @@ const ProductsList = () => {
         snapshot.forEach((doc =>{
           console.log(doc.id);
         }));
+      
+    };
+    const searchItems = async (searchFor) => {
+      if (!searchFor) {
+        // If search query is empty, clear the results
+        setStorage([]);
+        return;
+      }
+
+      const q = query(collection(db, 'products'), where('title', '>=', searchQuery.trim().toUpperCase()));
+      const snapshot = await getDocs(q);
+      const items = [];
+      snapshot.forEach(doc => {
+        const item = doc.data();
+        if (item.title.toUpperCase().startsWith(searchQuery.trim().toUpperCase())) {
+          items.push(item);
+        }
+      });
+      setStorage(items);
     };
     const renderItem = ({ item }) => (
-      <Pressable  style={styles.itemContainer}
-      onPress={() => router.replace(`/productDetail?category=${item.title}`)}>
       <TouchableOpacity 
-     style={styles.btn}
-     onPress={() => AddToCart(item, cart, setCart, item.quantity)}
+     style={styles.itemContainer}
+     onPress={() => router.replace(`/productDetail?category=${item.title}`)}
     >
-      <Image source={cartIcon} style={{ width: 50, height: 50 }} />
-      
       <Image style={styles.image} source={{ uri: item.image }} />
       <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.price}>{item.price} EGB</Text>
-      <Text style={styles.from}>from : {item.from}</Text>
+      <Text style={styles.from}>{item.title}</Text>
+      <Text style={styles.price}>{item.price}</Text>
       
     </TouchableOpacity>
-    </Pressable>
     );
     return(
-     <View style={styles.container}>
+      <View style={styles.container}>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search"
+        onChangeText={text => setSearchQuery(text)}
+        onSubmitEditing={searchItems}
+        
+      />
       <FlatList
         data={storage}
         renderItem={renderItem}
@@ -97,10 +116,13 @@ const styles = {
     height: 100,
     resizeMode: 'cover',
   },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  searchInput: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
-
 };
 export default ProductsList;

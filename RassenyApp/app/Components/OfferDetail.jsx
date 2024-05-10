@@ -1,4 +1,4 @@
-/*import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react'
 import { getFirestore } from 'firebase/firestore';
 import { useRoute } from '@react-navigation/native';
@@ -108,5 +108,5 @@ const OfferDetail  = () => {
   
   export default OfferDetail;
   
-*/
+
     

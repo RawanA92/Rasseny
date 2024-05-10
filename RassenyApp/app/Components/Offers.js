@@ -6,7 +6,7 @@ const Offers = ({ offersList }) => {
   const renderOffersItem = ({ item }) => (
     <TouchableOpacity
       style={styles.offersItem}
-      onPress={() => router.replace`(/offerDetail?category=${item.title})`}
+      onPress={() => router.replace(`/offerDetail?category=${item.title}`)}
     >
       <Image source={{ uri: item.image }} style={styles.offersImage} />
       <Text style={styles.offersName}>{item.title}</Text>
