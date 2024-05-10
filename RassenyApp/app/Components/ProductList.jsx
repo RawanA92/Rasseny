@@ -22,6 +22,14 @@ const ProductsList = () => {
   const [title] = useState (category);
   const [storage, setStorage] = useState ([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+
+const addItemToCart = (item) => {
+  const updatedCartItems = [...cartItems, item];
+  setCartItems(updatedCartItems);
+  localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+  };
+
 
   console.log(title); 
   
@@ -49,7 +57,6 @@ const ProductsList = () => {
     };
     const searchItems = async (searchFor) => {
       if (!searchFor) {
-        // If search query is empty, clear the results
         setStorage([]);
         return;
       }
@@ -65,18 +72,25 @@ const ProductsList = () => {
       });
       setStorage(items);
     };
+
     const renderItem = ({ item }) => (
       <TouchableOpacity 
-     style={styles.itemContainer}
-     onPress={() => router.replace(`/productDetail?category=${item.title}`)}
-    >
-      <Image style={styles.image} source={{ uri: item.image }} />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.from}>{item.title}</Text>
-      <Text style={styles.price}>{item.price}</Text>
-      
-    </TouchableOpacity>
+        style={styles.itemContainer}
+        onPress={() => router.replace(`/productDetail?category=${item.title}`)}
+      >
+        <Image style={styles.image} source={{ uri: item.image }} />
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.from}>{item.title}</Text>
+        <Text style={styles.price}>{item.price}</Text>
+        <TouchableOpacity 
+          style={styles.addToCartButton}
+          onPress={() => addItemToCart(item)}
+        >
+          <Text style={styles.addToCartButtonText}>ِAdd To Cart</Text>
+        </TouchableOpacity>
+      </TouchableOpacity>
     );
+    
     return(
       <View style={styles.container}>
       <TextInput
@@ -124,5 +138,16 @@ const styles = {
     paddingHorizontal: 10,
     marginBottom: 10,
   },
+  addToCartButton: {
+    backgroundColor: 'blue',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  addToCartButtonText: {
+    color: 'white',
+    textAlign: 'center',
+  },
+  
 };
 export default ProductsList;

@@ -24,6 +24,7 @@
     "expo-system-ui": "~2.9.4",
     "expo-web-browser": "~12.8.2",
     "firebase": "^10.11.1",
+    "rassenyapp": "file:",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.6",
