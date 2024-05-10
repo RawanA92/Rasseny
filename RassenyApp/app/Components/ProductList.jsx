@@ -1,5 +1,7 @@
+
 import { View, Text, Image, FlatList, TouchableOpacity , TextInput } from 'react-native';
 import React, { useEffect, useState } from 'react'
+
 import { getFirestore } from 'firebase/firestore';
 import { db} from "../../firebase/Config";
 import { useLocalSearchParams }from 'expo-router';
@@ -22,20 +24,14 @@ const ProductsList = () => {
   const [title] = useState (category);
   const [storage, setStorage] = useState ([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [cartItems, setCartItems] = useState([]);
-
-const addItemToCart = (item) => {
-  const updatedCartItems = [...cartItems, item];
-  setCartItems(updatedCartItems);
-  localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
-  };
-
 
   console.log(title); 
   
  
     useEffect(()=>{
          getItemListByCategory();
+         
+         loadRatings();
     },[]); 
      
     const getItemListByCategory =async()=>{
@@ -55,6 +51,31 @@ const addItemToCart = (item) => {
         }));
       
     };
+    const loadRatings = async () => {
+      try {
+        const jsonRatings = await AsyncStorage.getItem('ratings');
+        if (jsonRatings) {
+          const ratingsObj = JSON.parse(jsonRatings);
+          setRatings(ratingsObj);
+        }
+      } catch (error) {
+        console.error('Failed to load ratings:', error);
+      }
+    };
+  
+    const saveRatings = async () => {
+      try {
+        await AsyncStorage.setItem('ratings', JSON.stringify(ratings));
+      } catch (error) {
+        console.error('Failed to save ratings:', error);
+      }
+    };
+  
+    const updateRating = async (itemId, rating) => {
+      const newRatings = { ...ratings, [itemId]: rating };
+      setRatings(newRatings);
+      await saveRatings();
+    };
     const searchItems = async (searchFor) => {
       if (!searchFor) {
         setStorage([]);
@@ -72,23 +93,17 @@ const addItemToCart = (item) => {
       });
       setStorage(items);
     };
-
     const renderItem = ({ item }) => (
       <TouchableOpacity 
-        style={styles.itemContainer}
-        onPress={() => router.replace(`/productDetail?category=${item.title}`)}
-      >
-        <Image style={styles.image} source={{ uri: item.image }} />
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.from}>{item.title}</Text>
-        <Text style={styles.price}>{item.price}</Text>
-        <TouchableOpacity 
-          style={styles.addToCartButton}
-          onPress={() => addItemToCart(item)}
-        >
-          <Text style={styles.addToCartButtonText}>ِAdd To Cart</Text>
-        </TouchableOpacity>
-      </TouchableOpacity>
+     style={styles.itemContainer}
+     onPress={() => router.replace(`/productDetail?category=${item.title}`)}
+    >
+      <Image style={styles.image} source={{ uri: item.image }} />
+      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.from}>{item.title}</Text>
+      <Text style={styles.price}>{item.price}</Text>
+      
+    </TouchableOpacity>
     );
     
     return(
@@ -137,6 +152,16 @@ const styles = {
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+  
+  },ratingContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  star: {
+    fontSize: 20,
+    color: 'gold',
+    marginRight: 5,
+     
   },
   addToCartButton: {
     backgroundColor: 'blue',
