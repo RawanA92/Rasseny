@@ -2,10 +2,10 @@
 import { View, Text, Image, FlatList, TouchableOpacity, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react'
 import { getFirestore } from 'firebase/firestore';
-import { useRoute } from '@react-navigation/native';
+//import { useRoute } from '@react-navigation/native';
 import { db} from "../../firebase/Config";
 import { useLocalSearchParams }from 'expo-router';
-import cartIcon from '../assets/cart.png'; // Adjust the file extension if necessary
+
 
 import {
   getDocs,
