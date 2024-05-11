@@ -1,10 +1,16 @@
 import React, { useState,useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ShoppingCart from "../Components/Cart";
+import { useNavigation } from '@react-navigation/native';
+import BackButton from '../Components/BackButton'; // Import the BackButton component
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+  const navigation = useNavigation();
 
+  const goBack = () => {
+    navigation.goBack();
+  };
   useEffect(() => {
     const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
@@ -26,6 +32,7 @@ const Cart = () => {
 
   return (
     <View style={styles.container}>
+      <BackButton onPress={goBack} />
       <Text style={styles.title}>Your Cart</Text>
       <ShoppingCart 
         cartItems={cartItems} 

@@ -5,13 +5,18 @@ import { getDocs, collection } from "firebase/firestore";
 import Offers from "../Components/Offers";
 import Categories from "../Components/Categories";
 import { db } from "../../firebase/Config";
-
+import { useNavigation } from '@react-navigation/native';
+import BackButton from '../Components/BackButton'; // Import the BackButton component
 const Home = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [offersList, setOffersList] = useState([]);
   const [loadingOffers, setLoadingOffers] = useState(true);
+  const navigation = useNavigation();
 
+  const goBack = () => {
+    navigation.goBack();
+  };
   useEffect(() => {
     getCategoryList();
     getOffersList();
@@ -51,6 +56,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
+      <BackButton onPress={goBack} />
       <View style={styles.section}>
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />

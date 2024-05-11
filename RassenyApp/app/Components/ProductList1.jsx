@@ -5,7 +5,8 @@ import { db } from "../../firebase/Config";
 import { useLocalSearchParams } from 'expo-router';
 import { getDocs, setDoc, deleteDoc, doc, collection, query, where } from "firebase/firestore";
 import { router } from "expo-router";
-
+import BackButton from './BackButton'; // Import the BackButton component
+import { useNavigation } from '@react-navigation/native';
 const ProductsList1 = () => {
 
   const { category } = useLocalSearchParams();
@@ -18,7 +19,11 @@ const ProductsList1 = () => {
   const [newImageURL, setNewImageURL] = useState("");
   const [newFrom, setNewFrom] = useState("");
   const [newPrice, setNewPrice] = useState("");
+  const navigation = useNavigation();
 
+  const goBack = () => {
+    navigation.goBack();
+  };
   useEffect(() => {
     getItemListByCategory();
   }, []);
@@ -113,6 +118,7 @@ const ProductsList1 = () => {
 
   return (
     <View style={styles.container}>
+      <BackButton onPress={goBack} />
       <TextInput
         style={styles.searchInput}
         placeholder="Search"

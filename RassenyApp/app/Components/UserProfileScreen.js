@@ -1,36 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, Dimensions, Alert } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
-
+import { router } from "expo-router";
 const UserProfileScreen = ({ user, onClose }) => {
   const [avatarSource, setAvatarSource] = useState(null);
 
-  const selectImage = () => {
-    const options = {
-      title: 'Select Avatar',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
-        const source = { uri: response.uri };
-        setAvatarSource(source);
-      }
-    });
+  const selectImage = (event) => {
+    const file = event.target.files[0];
+    const source = URL.createObjectURL(file);
+    setAvatarSource(source);
   };
 
   const uploadImage = () => {
-    
     Alert.alert('Upload Success', 'Image has been uploaded successfully!');
+  };
+
+  const clearLocalStorage = () => {
+    localStorage.clear();
+    router.navigate(`/account/login`);
   };
 
   return (
@@ -46,13 +32,10 @@ const UserProfileScreen = ({ user, onClose }) => {
             <Text style={styles.closeButtonText}>Close</Text>
           </TouchableOpacity>
           <View style={styles.userInfo}>
-            <TouchableOpacity onPress={selectImage}>
-              {avatarSource ? (
-                <Image source={avatarSource} style={styles.avatar} />
-              ) : (
-                <Text style={styles.selectImageText}>Select Image</Text>
-              )}
-            </TouchableOpacity>
+            <input type="file" accept="image/*" onChange={selectImage} />
+            {avatarSource && (
+              <Image source={{ uri: avatarSource }} style={styles.avatar} />
+            )}
             <Text style={styles.label}>Name:</Text>
             <Text style={styles.text}>{user.name}</Text>
             <Text style={styles.label}>Email:</Text>
@@ -63,8 +46,12 @@ const UserProfileScreen = ({ user, onClose }) => {
               <Text style={styles.uploadButtonText}>Upload Image</Text>
             </TouchableOpacity>
           )}
+          <TouchableOpacity style={styles.clearStorageButton} onPress={clearLocalStorage}>
+            <Text style={styles.clearStorageButtonText}>Logout</Text>
+          </TouchableOpacity>
         </View>
       </View>
+      
     </Modal>
   );
 };
@@ -100,13 +87,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 150,
     height: 150,
-    borderRadius: 75, 
-    marginBottom: 10,
-  },
-  selectImageText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'blue',
+    borderRadius: 75,
     marginBottom: 10,
   },
   label: {
@@ -126,6 +107,17 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   uploadButtonText: {
+    color: 'white',
+    fontSize: 16,
+  },
+  clearStorageButton: {
+    backgroundColor: 'red',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  clearStorageButtonText: {
     color: 'white',
     fontSize: 16,
   },

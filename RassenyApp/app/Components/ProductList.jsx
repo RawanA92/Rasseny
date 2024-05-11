@@ -1,7 +1,7 @@
 
 import { View, Text, Image, FlatList, TouchableOpacity , TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
-
 import { getFirestore } from 'firebase/firestore';
 import { db} from "../../firebase/Config";
 import { useLocalSearchParams }from 'expo-router';
@@ -17,15 +17,27 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { router } from "expo-router";
-
+import BackButton from './BackButton'; // Import the BackButton component
 const ProductsList = () => {
   
   const {category} = useLocalSearchParams();
   const [title] = useState (category);
   const [storage, setStorage] = useState ([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [cartItems, setCartItems] = useState([]);
 
-  console.log(title); 
+  const addItemToCart = (item) => {
+    const updatedCartItems = [...cartItems, item];
+    setCartItems(updatedCartItems);
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+  };
+
+const [ratings, setRatings] = useState({});
+const navigation = useNavigation();
+
+const goBack = () => {
+  navigation.goBack();
+};
   
  
     useEffect(()=>{
@@ -93,21 +105,42 @@ const ProductsList = () => {
       });
       setStorage(items);
     };
+    const handleRatingPress = (productId, newRating) => {
+      setRatings(prevRatings => ({
+        ...prevRatings,
+        [productId]: newRating
+      }));
+    };
     const renderItem = ({ item }) => (
-      <TouchableOpacity 
-     style={styles.itemContainer}
-     onPress={() => router.replace(`/productDetail?category=${item.title}`)}
-    >
-      <Image style={styles.image} source={{ uri: item.image }} />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.from}>{item.title}</Text>
-      <Text style={styles.price}>{item.price}</Text>
-      
-    </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => router.replace(`/productDetail?category=${item.title}`)}
+      >
+        <Image style={styles.image} source={{ uri: item.image }} />
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.price}>{item.price}</Text>
+        <View style={styles.ratingContainer}>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleRatingPress(item.id, index + 1)}
+            >
+              <Text style={styles.star}>{index < (ratings[item.id] || 0) ? '★' : '☆'}</Text>
+            </TouchableOpacity>
+            
+          ))}
+        </View>
+        <TouchableOpacity 
+          style={styles.addToCartButton}
+          onPress={() => addItemToCart(item)}
+        >
+          <Text style={styles.addToCartButtonText}>ِAdd To Cart</Text>
+        </TouchableOpacity>
+      </TouchableOpacity>
     );
-    
     return(
       <View style={styles.container}>
+      <BackButton onPress={goBack} />
       <TextInput
         style={styles.searchInput}
         placeholder="Search"
@@ -173,6 +206,5 @@ const styles = {
     color: 'white',
     textAlign: 'center',
   },
-  
 };
 export default ProductsList;
