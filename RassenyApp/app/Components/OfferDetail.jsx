@@ -16,11 +16,17 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { router } from "expo-router";
-
+import { useNavigation } from '@react-navigation/native';
+import BackButton from '../Components/BackButton'; // Import the BackButton component
 const OfferDetail  = () => {
     const { category } = useLocalSearchParams();
    const [title] = useState (category);
     const [product, setProduct] = useState(null);
+    const navigation = useNavigation();
+  
+    const goBack = () => {
+      navigation.goBack();
+    };
     console.log('Title:', title);
 
     useEffect(() => {
@@ -50,6 +56,7 @@ const OfferDetail  = () => {
   
     return (
       <View style={styles.container}>
+        <BackButton onPress={goBack} />
         <Image style={styles.image} source={{ uri: product.image }} />
         <Text style={styles.title}>{product.title}</Text>
         <Text style={styles.newprice}>{product.newprice}</Text>

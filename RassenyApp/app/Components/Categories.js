@@ -32,7 +32,7 @@ const Categories = ({ categoryList }) => {
         contentContainerStyle={styles.contentContainer}
         style={{ flex: 1 }}
       />
-      {isProfileOpen && <UserProfileScreen onClose={() => setIsProfileOpen(false)} user={{ name: 'John Doe', email: 'john@example.com' }} />}
+      {isProfileOpen && <UserProfileScreen onClose={() => setIsProfileOpen(false)} user={{ name: localStorage.getItem("username"), email: localStorage.getItem("email") }} />}
       <TouchableOpacity style={styles.profileButton} onPress={openProfileScreen}>
         <Text style={styles.profileButtonText}>Profile</Text>
       </TouchableOpacity>
