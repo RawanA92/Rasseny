@@ -1,13 +1,6 @@
 import { router } from "expo-router";
 import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  Button,
-  Text,
-  Pressable,
-  StyleSheet,
-} from "react-native";
+import { View, TextInput, Button, Text, Pressable, StyleSheet } from "react-native";
 import { login } from "../../firebase/auth";
 
 const Login = () => {
@@ -17,17 +10,16 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-        const credentials = await login(email, password);
-        console.log('credentials', credentials);
-         if (email.includes('@admin')) {
-      
+      const credentials = await login(email, password);
+      console.log('credentials', credentials);
+      if (email.includes('@admin')) {
         router.navigate(`/home1`);
-    } else {
-          router.navigate(`/home`);
-        }
+      } else {
+        router.navigate(`/home`);
+      }
     } catch (error) {
-        console.log('error', JSON.stringify(error));
-        setError(error);
+      console.log('error', JSON.stringify(error));
+      setError(error);
     }
   };
 
@@ -37,32 +29,90 @@ const Login = () => {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+        style={styles.input}
       />
       <TextInput
         placeholder="Password"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
-        style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+        style={styles.input}
       />
-      <Button title="Login" onPress={handleLogin} />
-      <Pressable onPress={()=>router.replace("/account/register")}>
-        <Text style={{ marginTop: 10 }}>Register</Text>
+      <Pressable
+  style={({ pressed }) => [
+    {
+      backgroundColor: pressed ? 'blue' : 'purple', 
+      padding: 10,
+      borderRadius: 50,
+      marginLeft:10,
+      marginRight:10,
+    },
+    styles.button 
+  ]}
+  onPress={handleLogin}
+>
+  <Text style={{ color: 'white', textAlign: 'center' }}>Login</Text>
+</Pressable>
+      <Pressable 
+      style={styles.registerdButton}
+
+      onPress={() => router.replace("/account/register")}>
+        <Text style={styles.link}>Register</Text>
       </Pressable>
-      <Pressable onPress={()=> router.replace("/account/forgetPassword")}>
-        <Text style={{ marginTop: 10 }}>Forgot Password</Text>
+      <Pressable
+      style={styles.forgotPasswordButton}
+       onPress={() => router.replace("/account/forgetPassword")}>
+        <Text style={styles.password}>Forgot Password?</Text>
       </Pressable>
-      <Text>{error.code}</Text>
+      <Text style={[styles.error, { textAlign: 'center',marginTop:10,fontStyle:"italic" }]}>{error.code}</Text>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-    margin: 15,
+    margin: 25,
+    backgroundColor:"pink",
+    borderRadius:50
+  },
+  input: {
+    borderWidth: 1,
+    padding: 10,
+    marginBottom: 10,
+    marginRight:10,
+    marginLeft:10,
+    backgroundColor:"white",
+    borderColor:"pink",
+    borderRadius:50
+  },
+  registerdButton:{
+    alignItems:"center",
+    alignContent:"center",
+    
+  },
+  link: {
+    fontSize: 18,
+    fontWeight:"bold",
+   color:"white",
+   margin:20,
+  },
+  forgotPasswordButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    
+  },
+  password: {
+    color: "white",
+    fontSize: 16,
+    fontWeight:"bold"
+  },
+  error: {
+    color: "red",
+    fontSize:17,
+    alignContent:"center"
   },
 });
 
