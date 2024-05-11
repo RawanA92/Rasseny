@@ -4,13 +4,18 @@
     import { db } from '../../firebase/Config';
     import { query, collection, where, getDocs } from 'firebase/firestore';
     import { getFirestore } from 'firebase/firestore';
-    
+    import { useNavigation } from '@react-navigation/native';
+    import BackButton from '../Components/BackButton'; // Import the BackButton component
     const ProductDetail = () => {
       const { category } = useLocalSearchParams();
      const [title] = useState (category);
       const [product, setProduct] = useState(null);
       console.log('Title:', title);
+      const navigation = useNavigation();
 
+      const goBack = () => {
+        navigation.goBack();
+      };
       useEffect(() => {
         getdetails();
         
@@ -38,6 +43,7 @@
     
       return (
         <View style={styles.container}>
+          <BackButton onPress={goBack} />
           <Image style={styles.image} source={{ uri: product.image }} />
           <Text style={styles.title}>{product.title}</Text>
           <Text style={styles.from}>From: {product.from}</Text>

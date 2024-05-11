@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, TextInput, Alert, Modal } from 'react-native';
-import { getFirestore } from 'firebase/firestore';
+import { getDocs, setDoc, deleteDoc, doc, collection, query, where, addDoc } from "firebase/firestore";
 import { db } from "../../firebase/Config";
 import { useLocalSearchParams } from 'expo-router';
-import { getDocs, setDoc, deleteDoc, doc, collection, query, where } from "firebase/firestore";
 import { router } from "expo-router";
-
+import BackButton from './BackButton'; // Import the BackButton component
+import { useNavigation } from '@react-navigation/native';
 const ProductsList1 = () => {
-
   const { category } = useLocalSearchParams();
   const [title] = useState(category);
   const [storage, setStorage] = useState([]);
@@ -18,7 +17,12 @@ const ProductsList1 = () => {
   const [newImageURL, setNewImageURL] = useState("");
   const [newFrom, setNewFrom] = useState("");
   const [newPrice, setNewPrice] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  const [newInfo, setNewInfo] = useState("");
 
+  const goBack = () => {
+    navigation.goBack();
+  };
   useEffect(() => {
     getItemListByCategory();
   }, []);
@@ -72,6 +76,25 @@ const ProductsList1 = () => {
     }
   };
 
+  const handleAddProduct = async () => {
+    try {
+      await addDoc(collection(db, 'products'), {
+        title: newTitle,
+        image: newImageURL,
+        from: newFrom,
+        price: newPrice,
+        category: newCategory,
+        info: newInfo
+      });
+      Alert.alert("Success", "Product added successfully.");
+      setModalVisible(false);
+      getItemListByCategory();
+    } catch (error) {
+      console.error("Error adding product:", error);
+      Alert.alert("Error", "Failed to add product.");
+    }
+  };
+
   const handleUpdateProduct = async () => {
     try {
       const productRef = doc(db, 'products', selectedProduct.id);
@@ -80,7 +103,8 @@ const ProductsList1 = () => {
         image: newImageURL,
         from: newFrom,
         price: newPrice,
-        category: title 
+        category: newCategory,
+        info: newInfo
       });
       Alert.alert("Success", "Product updated successfully.");
       setModalVisible(false);
@@ -113,6 +137,7 @@ const ProductsList1 = () => {
 
   return (
     <View style={styles.container}>
+      <BackButton onPress={goBack} />
       <TextInput
         style={styles.searchInput}
         placeholder="Search"
@@ -124,6 +149,10 @@ const ProductsList1 = () => {
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
       />
+
+      <TouchableOpacity style={[styles.button, styles.addButton]} onPress={() => { setSelectedProduct(null); setModalVisible(true); }}>
+        <Text style={styles.buttonText}>Add Product</Text>
+      </TouchableOpacity>
 
       <Modal
         animationType="slide"
@@ -157,8 +186,20 @@ const ProductsList1 = () => {
               value={newPrice}
               onChangeText={setNewPrice}
             />
-            <TouchableOpacity style={styles.modalButton} onPress={handleUpdateProduct}>
-              <Text style={styles.modalButtonText}>Update Product</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Category"
+              value={newCategory}
+              onChangeText={setNewCategory}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Info"
+              value={newInfo}
+              onChangeText={setNewInfo}
+            />
+            <TouchableOpacity style={styles.modalButton} onPress={selectedProduct ? handleUpdateProduct : handleAddProduct}>
+              <Text style={styles.modalButtonText}>{selectedProduct ? "Update Product" : "Add Product"}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[styles.modalButton, styles.cancelButton]} onPress={() => setModalVisible(false)}>
               <Text style={styles.modalButtonText}>Cancel</Text>
@@ -251,6 +292,10 @@ const styles = {
   },
   cancelButton: {
     backgroundColor: '#ccc',
+  },
+  addButton: {
+    marginTop: 10,
+    alignSelf: 'flex-end',
   },
 };
 

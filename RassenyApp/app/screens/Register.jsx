@@ -10,13 +10,19 @@ const Register = () => {
 
   const handlePress = async () => {
     try {
-      const credentials = await register(email, password);
-      console.log('credentials', credentials);
-      if (email.includes('@admin')) {
-        router.navigate(`/home1`);
-      } else {
-        router.navigate(`/home`);
-      }
+        const credentials = await register(email, password);
+        console.log('credentials', credentials);
+         if (email.includes('@admin')) {
+          localStorage.setItem("session", "admin");
+          localStorage.setItem("email",email)
+          localStorage.setItem("username",email.split("@")[0])
+         router.navigate(`/home1`);
+         } else {
+          localStorage.setItem("session", "user");
+          localStorage.setItem("email",email)
+          localStorage.setItem("username",email.split("@")[0])
+          router.navigate(`/home`);
+        }
     } catch (error) {
       console.log('error', JSON.stringify(error));
       setError(error);
