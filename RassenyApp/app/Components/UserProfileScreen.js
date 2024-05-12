@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   closeButton: {
+    flex:1,
     position: 'absolute',
     top: 10,
     right: 10,
@@ -82,6 +83,8 @@ const styles = StyleSheet.create({
     color: 'blue',
   },
   userInfo: {
+    flex:1,
+    marginTop:20,
     alignItems: 'center',
   },
   avatar: {

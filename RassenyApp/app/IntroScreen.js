@@ -9,7 +9,7 @@ const IntroScreen = () => {
   return (
     <View style={styles.container}>
       <Animatable.Text animation="fadeInDown" style={styles.title}>
-        Welcome to Raceny!
+        Welcome to Rasseny!
       </Animatable.Text>
       <Animatable.Text animation="fadeInUp" style={styles.subtitle}>
         Let's get started
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00ffff',
+    backgroundColor: 'white',
     width: windowWidth * 0.9, 
     marginHorizontal: windowWidth * 0.05, 
   },
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     fontSize: windowWidth * 0.08, 
     fontWeight: 'bold',
     marginBottom: windowHeight * 0.03, 
-    color:"white"
+    color:"black"
 
   },
   subtitle: {

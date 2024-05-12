@@ -226,7 +226,7 @@ const styles = {
      
   },
   addToCartButton: {
-    backgroundColor: 'blue',
+    backgroundColor: "#00ffff",
     padding: 8,
     borderRadius: 5,
     marginTop: 5,

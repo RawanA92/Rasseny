@@ -11,7 +11,7 @@ const BackButton = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: "#00ffff",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

@@ -200,11 +200,8 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: windowHeight * 0.03, 
-    borderRadius:30,  },
+    marginBottom: 20,
+  },
   categoryItem: {
     marginHorizontal: windowWidth * 0.05, 
     marginBottom: windowHeight * 0.02, 
@@ -231,21 +228,9 @@ const styles = StyleSheet.create({
     color: "white", 
     textShadowColor: "#00ffff", //shadow
     fontWeight:'850',
-
     textShadowOffset: { width: 1, height: 5},
     textShadowRadius: 10,  width:'100%',
   height:'auto'
-  },
-
-  overlay: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    left: 0,
-    bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    justifyContent: "center",
-    alignItems: "center",
   },
   Ctitle: {
     fontWeight:'1000',
@@ -258,6 +243,16 @@ const styles = StyleSheet.create({
     backgroundColor:"rgba(200, 220, 230,1)" ,    width:'100%',
     textAlign: "center", 
 
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   overlayButton: {
     backgroundColor: "white",
