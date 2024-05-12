@@ -105,6 +105,8 @@ const Categories1 = ({ categoryList }) => {
 
   return (
     <View style={styles.container}>
+    <Text style={styles.Ctitle} > Your Categories </Text>
+
       <FlatList
         data={categoryList}
         renderItem={renderCategoryItem}
@@ -198,26 +200,43 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
-  },
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: windowHeight * 0.03, 
+    borderRadius:30,  },
   categoryItem: {
-    marginRight: 10,
-    borderRadius: 8,
-    backgroundColor: "#e0e0e0",
-    padding: 10,
+    marginHorizontal: windowWidth * 0.05, 
+    marginBottom: windowHeight * 0.02, 
+    borderRadius: windowWidth * 0.03, 
     alignItems: "center",
-    position: "relative",
+    width: (windowWidth - (windowWidth * 0.1)) / 2, 
+    maxWidth: windowWidth * 0.4, 
   },
   categoryImage: {
-    width: 120,
-    height: 120,
-    borderRadius: 8,
-    marginBottom: 5,
+    backgroundColor: 'white',
+    shadowColor: "rgb(83,211,217)", 
+    shadowOffset: { width:30, height: 50},
+    shadowOpacity: 1, 
+    shadowRadius: windowWidth * 0.1,
+    width: '100%',
+    height: windowHeight * 0.2, 
+    borderRadius: windowWidth * 0.04, 
+    marginBottom: windowHeight * 0.0, 
   },
   categoryName: {
-    fontSize: 16,
-    fontWeight: "bold",
+    borderRadius:10, 
+    fontSize: windowWidth * 0.05,
+    textAlign: "center", 
+    color: "white", 
+    textShadowColor: "#00ffff", //shadow
+    fontWeight:'850',
+
+    textShadowOffset: { width: 1, height: 5},
+    textShadowRadius: 10,  width:'100%',
+  height:'auto'
   },
+
   overlay: {
     position: "absolute",
     top: 0,
@@ -227,6 +246,18 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     justifyContent: "center",
     alignItems: "center",
+  },
+  Ctitle: {
+    fontWeight:'1000',
+    padding:10,
+    fontSize: windowWidth * 0.06,
+    color: "white", 
+    textShadowColor: "#00ffff", 
+    textShadowOffset: { width: 0, height: 0 },
+    textShadowRadius: 8,
+    backgroundColor:"rgba(200, 220, 230,1)" ,    width:'100%',
+    textAlign: "center", 
+
   },
   overlayButton: {
     backgroundColor: "white",

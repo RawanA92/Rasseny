@@ -1,5 +1,5 @@
 
-import { View, Text, Image, FlatList, TouchableOpacity , TextInput } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity , TextInput ,Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react'
 import { getFirestore } from 'firebase/firestore';
@@ -156,27 +156,54 @@ const goBack = () => {
     </View>
   );
 }
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = {
   container: {
+    backgroundColor: "rgba(200, 220, 230,.75)",
+
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: windowHeight * 0.03, 
+    borderRadius:30,
   },
   itemContainer: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    marginHorizontal: windowWidth * 0.05, 
+    marginBottom: windowHeight * 0.02, 
+    borderRadius: windowWidth * 0.03, 
+    alignItems: "center",
+    width: (windowWidth - (windowWidth * 0.1)) / 2, 
+    maxWidth: windowWidth * 0.4, 
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    borderRadius:10, 
+    fontSize: windowWidth * 0.05,
+    textAlign: "center", 
+    color: "white", 
+    textShadowColor: "#00ffff", 
+    fontWeight:'850',
+
+    textShadowOffset: { width: 1, height: 5},
+    textShadowRadius: 10,  width:'100%',
+  height:'auto'
   },
   price: {
-    fontSize: 16,
-    color: 'green',
+    fontSize: windowWidth * 0.04,
+    fontWeight: 'bold',
+    color: 'green', 
+    textAlign: "center",
   },
   image: {
-    width: 100,
-    height: 100,
-    resizeMode: 'cover',
+    backgroundColor: 'white',
+    shadowColor: "rgb(83,211,217)", 
+    shadowOffset: { width:30, height: 50},
+    shadowOpacity: 1, 
+    shadowRadius: windowWidth * 0.1,
+    width: '100%',
+    height: windowHeight * 0.2, 
+    borderRadius: windowWidth * 0.04, 
+    marginBottom: windowHeight * 0.0, 
   },
   searchInput: {
     height: 40,
@@ -185,8 +212,10 @@ const styles = {
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
-  
-  },ratingContainer: {
+    backgroundColor: "white", 
+    fontSize: windowWidth * 0.04, 
+  },
+  ratingContainer: {
     flexDirection: 'row',
     marginTop: 5,
   },

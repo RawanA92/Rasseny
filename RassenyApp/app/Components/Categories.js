@@ -22,6 +22,8 @@ const Categories = ({ categoryList }) => {
 
   return (
     <View style={styles.container}>
+    <Text style={styles.Ctitle} > Your Categories </Text>
+
       <FlatList
         data={categoryList}
         renderItem={renderCategoryItem}
@@ -50,7 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: windowHeight * 0.03, 
-    backgroundColor:"#e1aae4",
     borderRadius:30,
   },
   contentContainer: {
@@ -59,11 +60,6 @@ const styles = StyleSheet.create({
 
   },
   categoryItem: {
-    borderWidth: 3,
-    backgroundColor:"white",
-    borderColor: "white", 
-    shadowColor: "#00ffff", 
-    shadowRadius: 20,
     marginHorizontal: windowWidth * 0.05, 
     marginBottom: windowHeight * 0.02, 
     borderRadius: windowWidth * 0.03, 
@@ -74,44 +70,45 @@ const styles = StyleSheet.create({
   
   
   categoryImage: {
-    borderColor: "black", 
-    shadowColor: "#00ffff", 
-    shadowOffset: { width: 0, height: 0 },
+    backgroundColor: 'white',
+    shadowColor: "rgb(83,211,217)", 
+    shadowOffset: { width:30, height: 50},
     shadowOpacity: 1, 
-    shadowRadius: 20,
+    shadowRadius: windowWidth * 0.1,
     width: '100%',
     height: windowHeight * 0.2, 
-    borderRadius: windowWidth * 0.07, 
+    borderRadius: windowWidth * 0.04, 
     marginBottom: windowHeight * 0.0, 
   },
   categoryName: {
-    padding:3,
-    borderRadius:10,
-    backgroundColor:"#e1aae4",
+    borderRadius:10, 
     fontSize: windowWidth * 0.05,
-    fontWeight: 'bold', 
     textAlign: "center", 
     color: "white", 
-    textShadowColor: "purple", 
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 9,  width:'100%',
+    textShadowColor: "#00ffff", //shadow
+    fontWeight:'850',
+
+    textShadowOffset: { width: 1, height: 5},
+    textShadowRadius: 10,  width:'100%',
   height:'auto'
   },
   Ctitle: {
+    fontWeight:'1000',
     padding:10,
     fontSize: windowWidth * 0.06,
-    fontWeight: 'bold', 
     color: "white", 
-    textShadowColor: "purple", 
+    textShadowColor: "#00ffff", 
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 9,
-  },
+    textShadowRadius: 8,
+    backgroundColor:"rgba(200, 220, 230,1)" ,    width:'100%',
+    textAlign: "center", 
 
+  },
   profileButton: {
     position: 'absolute', 
-    top: windowHeight * 0.05, 
-    right: windowWidth * 0.05, 
-    backgroundColor: 'blue',
+    top: -50, 
+    right: 10, 
+    backgroundColor: '#00ffff',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

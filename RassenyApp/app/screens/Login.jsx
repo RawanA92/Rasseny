@@ -66,7 +66,7 @@ const Login = () => {
       <Pressable
   style={({ pressed }) => [
     {
-      backgroundColor: pressed ? 'blue' : 'purple', 
+      backgroundColor: pressed ? 'blue' : 'black', 
       padding: 10,
       borderRadius: 50,
       marginLeft:10,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     margin: 25,
-    backgroundColor:"pink",
+    backgroundColor:"#00ffff",
     borderRadius:50
   },
   input: {

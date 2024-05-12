@@ -78,14 +78,22 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
+    backgroundColor:"rgba(200, 220, 230,.75)"
   },
   section: {
     flex: 1,
     width: "100%",
     height:'100%'
   },
+  BackButton:{
+    position: 'absolute', 
+    top: 3, 
+    backgroundColor: 'blue',
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  }
+
 });
 
 export default Home;

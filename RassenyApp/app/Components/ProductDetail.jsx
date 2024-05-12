@@ -1,5 +1,5 @@
     import React, { useEffect, useState } from 'react';
-    import { View, Text, Image } from 'react-native';
+    import { View, Text, Image  ,Dimensions} from 'react-native';
     import { useLocalSearchParams } from 'expo-router';
     import { db } from '../../firebase/Config';
     import { query, collection, where, getDocs } from 'firebase/firestore';
@@ -53,7 +53,8 @@
         </View>
       );
     };
-    
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
     const styles = {
       container: {
         flex: 1,
@@ -61,34 +62,36 @@
         justifyContent: 'center',
       },
       title: {
-        fontSize: 24,
         fontWeight: 'bold',
-        marginVertical: 10,
-      },
+      fontSize: windowWidth * 0.06,
+      color: "white",
+      textShadowColor: "#00ffff",
+      textShadowOffset: { width: 0, height: 0 },
+      textShadowRadius: 8,
+      textAlign:"center",
+      backgroundColor: "rgba(200, 220, 230,1)",
+      marginVertical: 10,},
+    
       price: {
         fontSize: 20,
         color: 'green',
         marginBottom: 10,
       },
-      from: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginVertical: 10,
-      },
       info: {
-        fontSize: 16,
-        textAlign: 'center',
-        marginHorizontal: 20,
+        fontSize: windowWidth * 0.04,
+      textAlign: 'center',
+      marginHorizontal: 20,
       },
       image: {
-        width: 200,
-        height: 200,
+        width: '100%',
+        height: windowHeight * 0.2,
         resizeMode: 'contain',
         marginBottom: 10,
+        borderRadius: windowWidth * 0.03,
+        borderColor: '#00ffff',
+        borderWidth: 1.8,
       },
     };
-    
     export default ProductDetail;
-    
  
       

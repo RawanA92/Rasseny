@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, TextInput, Alert, Modal } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, TextInput, Alert, Modal , Dimensions } from 'react-native';
 import { getDocs, setDoc, deleteDoc, doc, collection, query, where, addDoc } from "firebase/firestore";
 import { db } from "../../firebase/Config";
 import { useLocalSearchParams } from 'expo-router';
@@ -210,35 +210,56 @@ const ProductsList1 = () => {
     </View>
   );
 };
-
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = {
   container: {
     flex: 1,
   },
   itemContainer: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginHorizontal: windowWidth * 0.05, 
+    marginBottom: windowHeight * 0.02, 
+    borderRadius: windowWidth * 0.03, 
+    alignItems: "center",
+    width: (windowWidth - (windowWidth * 0.1)) / 2, 
+    maxWidth: windowWidth * 0.4, 
   },
   detailsContainer: {
     flex: 1, 
     marginLeft: 10, 
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: windowHeight * 0.03, 
+    borderRadius:30,
   },
   title: {
-    fontSize: 18,
-    fontWeight: 'bold',
+    borderRadius:10, 
+    fontSize: windowWidth * 0.05,
+    textAlign: "center", 
+    color: "black", 
+    textShadowColor: "#00ffff", //shadow
+    fontWeight:'850',
+
+    textShadowOffset: { width: 1, height: 5},
+    textShadowRadius: 10,  width:'100%',
+    height:'auto'
+
   },
   info: {
     fontSize: 16,
     marginTop: 5,
   },
   image: {
-    width: 100,
-    height: 100,
-    resizeMode: 'cover',
-    marginRight: 10,
+    backgroundColor: 'white',
+    shadowColor: "rgb(83,211,217)", 
+    shadowOffset: { width:30, height: 50},
+    shadowOpacity: 1, 
+    shadowRadius: windowWidth * 0.1,
+    width: '100%',
+    height: windowHeight * 0.2, 
+    borderRadius: windowWidth * 0.04, 
+    marginBottom: windowHeight * 0.0, 
   },
   searchInput: {
     height: 40,
@@ -247,6 +268,8 @@ const styles = {
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    backgroundColor: "white", 
+    fontSize: windowWidth * 0.04, 
   },
   button: {
     marginLeft: 10,

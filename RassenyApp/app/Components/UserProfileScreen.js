@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: '#00ffff',
   },
   modal: {
     backgroundColor: 'white',
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   clearStorageButton: {
-    backgroundColor: 'red',
+    backgroundColor: '#00ffff',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

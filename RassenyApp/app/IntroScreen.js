@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#00ffff',
     width: windowWidth * 0.9, 
     marginHorizontal: windowWidth * 0.05, 
   },
@@ -34,6 +34,8 @@ const styles = StyleSheet.create({
     fontSize: windowWidth * 0.08, 
     fontWeight: 'bold',
     marginBottom: windowHeight * 0.03, 
+    color:"white"
+
   },
   subtitle: {
     fontSize: windowWidth * 0.06, 

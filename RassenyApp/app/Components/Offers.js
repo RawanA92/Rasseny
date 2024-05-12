@@ -15,6 +15,8 @@ const Offers = ({ offersList }) => {
 
   return (
     <View style={styles.container}>
+    <Text style={styles.Ctitle}>Offers</Text>
+
       <FlatList
         data={offersList}
         renderItem={renderOffersItem}
@@ -30,73 +32,68 @@ const Offers = ({ offersList }) => {
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
 const styles = StyleSheet.create({
   container: {
-    borderRadius:20,
-    
-    borderWidth: 2,
-    borderColor: "black", 
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: windowHeight * 0.08, 
-    shadowColor: "#00ffff", 
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 20,
-    
-
+    marginBottom: windowHeight * 0.03,
+    borderColor: "black",
+    width: '100%',
   },
   contentContainer: {
     justifyContent: 'center',
     alignItems: 'center',
   },
   offersItem: {
-    borderWidth: 3,
-    backgroundColor:"white",
-    borderColor: "white", 
-    shadowColor: "#00ffff", 
-    shadowRadius: 20,
-    marginHorizontal: windowWidth * 0.05, 
-    marginBottom: windowHeight * 0.02, 
-    borderRadius: windowWidth * 0.03, 
+    marginHorizontal: windowWidth * 0.05,
+    marginBottom: windowHeight * 0.02,
+    borderRadius: windowWidth * 0.03,
     alignItems: "center",
-    width: (windowWidth - (windowWidth * 0.1)) / 2, 
-    maxWidth: windowWidth * 0.4, 
+    width: (windowWidth - (windowWidth * 0.1)) / 2,
+    maxWidth: windowWidth * 0.4,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8, // 
   },
   offersImage: {
-    borderColor: "black", 
-    shadowColor: "#00ffff", 
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1, 
-    shadowRadius: 20,
     width: '100%',
-    height: windowHeight * 0.2, 
-    borderRadius: windowWidth * 0.07, 
-    marginBottom: windowHeight * 0.0, 
+    height: windowHeight * 0.2,
+    borderRadius: windowWidth * 0.03,
+    marginBottom: windowHeight * 0.01,
+    borderColor: '#00ffff',
+    borderWidth: 1.8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.35,
+    shadowRadius: 6.27,
+    elevation: 10,
   },
   offersName: {
-    padding:3,
-    borderRadius:10,
-    backgroundColor:"#e1aae4",
-    fontSize: windowWidth * 0.05,
-    fontWeight: 'bold', 
-    textAlign: "center", 
-    color: "white", 
-    textShadowColor: "purple", 
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 9,  width:'100%',
-  height:'auto'
+    fontWeight:'500',
+    borderRadius: 10,
+    fontSize: windowWidth * 0.04,
+    textAlign: "center",
+    color: "black",
+    textShadowColor: "#00ffff",
+    textShadowOffset: { width: 1, height: 4 },
+    textShadowRadius: 4,
+    width: '100%',
+    height: 'auto'
   },
   Ctitle: {
-    padding:10,
+    fontWeight: '1000',
     fontSize: windowWidth * 0.06,
-    fontWeight: 'bold', 
-    color: "white", 
-    textShadowColor: "purple", 
+    color: "white",
+    textShadowColor: "#00ffff",
     textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 9,
+    textShadowRadius: 8,
+    marginBottom: -50,
+    width: '100%',
+    textAlign: "center",
+    backgroundColor: "rgba(200, 220, 230,1)"
   },
 });
 
