@@ -17,7 +17,7 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { router } from "expo-router";
-import BackButton from './BackButton'; // Import the BackButton component
+import BackButton from './BackButton'; 
 const ProductsList = () => {
   
   const {category} = useLocalSearchParams();
@@ -118,6 +118,7 @@ const goBack = () => {
       >
         <Image style={styles.image} source={{ uri: item.image }} />
         <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.info}>{item.from}</Text>
         <Text style={styles.price}>{item.price}</Text>
         <View style={styles.ratingContainer}>
           {Array.from({ length: 5 }).map((_, index) => (

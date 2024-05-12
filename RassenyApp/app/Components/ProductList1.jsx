@@ -19,6 +19,7 @@ const ProductsList1 = () => {
   const [newPrice, setNewPrice] = useState("");
   const [newCategory, setNewCategory] = useState("");
   const [newInfo, setNewInfo] = useState("");
+  const navigation = useNavigation();
 
   const goBack = () => {
     navigation.goBack();
